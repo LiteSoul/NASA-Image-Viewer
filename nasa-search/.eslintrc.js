@@ -1,4 +1,5 @@
 // http://eslint.org/docs/user-guide/configuring
+
 module.exports = {
 	root: true,
 	parser: 'babel-eslint',
@@ -6,28 +7,38 @@ module.exports = {
 		sourceType: 'module'
 	},
 	env: {
-		browser: true,
-		commonjs: true,
-		es6: true,
-		node: true
+		browser: true
 	},
-	// 'html' required to lint *.vue files
+	extends: ['airbnb-base', 'prettier'],
+	// required to lint *.vue files
 	plugins: ['html', 'prettier'],
-	extends: ['eslint:recommended', 'prettier'],
-	parserOptions: {
-		sourceType: 'module'
+	// check if imports actually resolve
+	settings: {
+		'import/resolver': {
+			webpack: {
+				config: 'build/webpack.base.conf.js'
+			}
+		}
 	},
 	// add your custom rules here
 	rules: {
-		// allow debugger during development
-		'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-		indent: ['error', 'tab'],
-		'linebreak-style': ['error', 'windows'],
-		quotes: ['error', 'single'],
-		semi: ['error', 'never'],
-		'prettier/prettier': [
+		// don't require .vue extension when importing
+		'import/extensions': [
 			'error',
-			{ singleQuote: true, useTabs: true, semi: false }
-		]
+			'always',
+			{
+				js: 'never',
+				vue: 'never'
+			}
+		],
+		// allow optionalDependencies
+		'import/no-extraneous-dependencies': [
+			'error',
+			{
+				optionalDependencies: ['test/unit/index.js']
+			}
+		],
+		// allow debugger during development
+		'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
 	}
 }
