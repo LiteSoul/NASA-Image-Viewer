@@ -16,7 +16,7 @@
     "eslint-config-prettier": "^2.5.0",
     "eslint-plugin-prettier": "^2.2.0",
     "prettier": "^1.7.0",
-    "vue": "^2.4.2",
+    "vue": "^3.0.0",
     "vue-router": "^2.7.0"
   },
   "devDependencies": {
